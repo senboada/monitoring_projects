@@ -1,0 +1,23 @@
+version: "3.7" # version del docker-compose(?)
+services:
+    mysql: # 2do servici
+        image: mysql:8.0 # imagen de docker hub
+        container_name: mysql # nombre de referencia del servicio
+        restart: unless-stopped # si tiene algun problema, reinicialo
+        tty: true # aqui si le fallo joven xD, 👀 leo los comentarios
+        ports:
+            - 33069:3306 # puerto local:puerto del servicio
+        volumes:
+            - ./mysql:/var/lib/mysql # carpeta local:carpeta de config de mysql
+        environment: # datos de configuracion del entorno
+            MYSQL_DATABASE: "homestead" # importante que tengan comillas
+            MYSQL_USER: "homestead"
+            MYSQL_PASSWORD: "secret"
+            MYSQL_ROOT_PASSWORD: "secret.root"
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        networks:
+            - laravel # red
+
+networks: # declaracion de la red
+    laravel:
